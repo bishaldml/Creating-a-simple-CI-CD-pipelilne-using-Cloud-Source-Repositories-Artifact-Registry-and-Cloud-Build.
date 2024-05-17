@@ -106,7 +106,7 @@ git push -u origin dev
 2. Source Repository: sample-app
 3. Branch: ^master$
 4. Cloud Build Configuration File: cloudbuild.yaml
-
+```
 2. Creating sample-app-dev-deploy Cloud Build Trigger with configurations:
 ```
 1. Event: Push to a branch
