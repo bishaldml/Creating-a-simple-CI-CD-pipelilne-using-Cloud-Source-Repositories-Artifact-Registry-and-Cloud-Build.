@@ -1,5 +1,5 @@
 # Creating-a-simple-CI-CD-pipelilne-using-Cloud-Source-Repositories-Artifact-Registry-and-Cloud-Build.
-Implementing DevOps Workflow in Google Cloud.
+#### Implementing DevOps Workflow in Google Cloud.
 
 ## Challenge's:
 1. Creating a GKE Cluster based on a set of configurations needed.
@@ -115,9 +115,10 @@ git push -u origin dev
 3. Branch: ^dev$
 4. Cloud Build Configuration File: cloudbuild-dev.yaml
 ```
-### *Note: After setting up the triggers, any changes to the branches triggers the corresponding Cloud Build Pipeline, which builds and deploy the application as specified in the cloudbuild.yaml files.
+#### *Note: After setting up the triggers, any changes to the branches triggers the corresponding Cloud Build Pipeline, which builds and deploy the application as specified in the cloudbuild.yaml files.
 
 ## Task-4: Deploy the first version of the application.
+
 ### Build the First development deployment.
 1. In cloud shell, inspect the cloudbuild-dev.yaml file and replace the <version> on lines 9 and 13 with v1.0
 2. Navigate to the dev/deployment.yaml file and update the <todo> on line 17 with the correct container image name.
@@ -134,4 +135,27 @@ git push -u origin dev
 6. Navigate to the LoadBalance IP of the service and add the /blue entry point of the end of the URL to verify the application is up and running. It should resemble samething like the following: http://34.135.97.199:8080/blue.
 
 ### Build the First production deployment.
-1. 
+
+1. Switch to the master branch. Inspect cloudbuild.yaml located in sample-app and replace the <version> on lines 11 and 16 with v1.0:
+```
+git checkout master
+git branch
+```
+2. Navigate to the pod/deployment.yaml file and update the <todo> on line 17 with the correct container image name.
+3. Make a commit with your changes on the master branch and push changes to trigger the sample-app-prod-deploy build job:
+```
+git add .
+git commit -m "msg-3"
+git push -u origin master
+```
+4. Verify the build executed successfully in cloud history page, and verify the production-deployment application was deployed onto the prod namespace of the cluster.
+5. Expose the production-deployment on the prod namespace to a loadBalancer service named prod-deployment-service on port 8080, to the one specified in the Dockerfile.
+6. Navigate to the LoadBalancer IP of the service and add the /blue entry point of the end of the URL to verify the application is up and running. It should resemble something like the following: http://34.135.245.19:8080/blue
+
+## Task-5: Deploy the second version of the application.
+1. Switch back to the dev branch.
+```
+git checkout dev
+git branch
+```
+2. 
