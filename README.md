@@ -98,6 +98,7 @@ git push -u origin dev
 ```
 ## Task-3: Create Cloud Build Triggers
 -> The first trigger listens for changes on the master branch and builds a Docker image of our application, pushes it to Google Artifact Registry and deploys the latest version of the image to the prod namespace in our GKE cluster.
+
 -> Second trigger is for dev branch to deploy the latest version image to dev namespace.
 
 1. Creating Cloud Build Trigger named sample-app-prod-deploy with below configurations:
