@@ -61,7 +61,7 @@ gcloud source repos create <repo-name>
 ```
 2. Cloning the sample-app Cloud Source Repository in Cloud Shell.
 ```
-git clone <url-of-repository>
+git clone https://source.developers.google.com/p/$PROJECT_ID/r/sample-app
 ```
 3. Copying the sample code of Go-Application into our sample-app directory.
 ```
@@ -70,9 +70,6 @@ gsutil cp -r gs://spls/gsp330/sample-app/* .
 ```
 4. Automatically replacing the <your-region> and <your-zone> placeholders in the cloudbuild-dev.yaml and cloudbuild.yaml files with the assigned region and zone of our project.
 ```
-export REGION="your-region"
-export ZONE="your-zone"
-
 for file in sample-app/cloudbuild-dev.yaml sample-app/cloudbuild.yaml; do
   sed -i 's/<your_region>/${REGION}/g' "$file"
   sed -i 's/<your_zone>/${ZONE}/g' "$file"
@@ -122,7 +119,9 @@ git push -u origin dev
 #### *Note: After setting up the triggers, any changes to the branches triggers the corresponding Cloud Build Pipeline, which builds and deploy the application as specified in the cloudbuild.yaml files.
 
 ## Task-4: Deploy the first version of the application.
-
+```
+gcloud builds submit --tag="${REGION}-docker.pkg.dev/${PROJECT_ID}/$REPO/hello-cloudbuild:v1.0" .
+```
 ### Build the First development deployment.
 1. In cloud shell, inspect the cloudbuild-dev.yaml file and replace the <version> on lines 9 and 13 with v1.0
 2. Navigate to the dev/deployment.yaml file and update the <todo> on line 17 with the correct container image name.
