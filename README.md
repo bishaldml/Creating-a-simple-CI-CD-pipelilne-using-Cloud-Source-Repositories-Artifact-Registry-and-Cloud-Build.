@@ -186,7 +186,7 @@ func redHandler(w http.ResponseWriter, r *http.Request) {
 6. Make a commit with your changes on the dev branch and push changes to trigger the sample-app-dev-deploy build job.
 ```
 git add .
-git commit -m "First development deployment" 
+git commit -m "First development deployment of second version" 
 git push -u origin dev
 ```
 7. Verify your build executed successfully in Cloud build History page, and verify the development-deployment application was deployed onto the dev namespace of the cluster and is using the v2.0 image.
@@ -194,6 +194,10 @@ git push -u origin dev
 
 ### Build the second production deployment
 1. Switch to the master branch.
+```
+git checkout master
+git branch
+```
 2. In the main.go file, update the main() function to the following:
 ```
 func main() {
@@ -216,7 +220,7 @@ func redHandler(w http.ResponseWriter, r *http.Request) {
 6. Make a commit with your changes on the master branch and push changes to trigger the sample-app-prod-deploy build job.
 ```
 git add .
-git commit -m "Second production deployment" 
+git commit -m "Second production deployment of second version" 
 git push -u origin master
 ```
 7. Verify your build executed successfully in Cloud build History page, and verify the production-deployment application was deployed onto the prod namespace of the cluster and is using the v2.0 image.
