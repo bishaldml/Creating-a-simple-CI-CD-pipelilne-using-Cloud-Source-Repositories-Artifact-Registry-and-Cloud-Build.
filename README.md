@@ -234,16 +234,6 @@ Click on View all link under Build History for the sample-app-prod-deploy trigge
 Click on the second most recent build available (or the v1.0 build that executed successfully)
 Click Rebuild.
 ```
- 
-Task 6. Roll back the production deployment
- 
-1. Roll back the production-deployment to use the v1.0 version of the application.
-```
-In the Cloud console, go to Cloud Build > Dashboard.
-Click on View all link under Build History for the sample-app-prod-deploy trigger.
-Click on the second most recent build available (or the v1.0 build that executed successfully)
-Click Rebuild.
-```
 Other method to roll back using kubectl tool:
 Run the following command to roll back the production deployment:
 ```
