@@ -153,9 +153,58 @@ git push -u origin master
 6. Navigate to the LoadBalancer IP of the service and add the /blue entry point of the end of the URL to verify the application is up and running. It should resemble something like the following: http://34.135.245.19:8080/blue
 
 ## Task-5: Deploy the second version of the application.
+### Build the First development deployment.
 1. Switch back to the dev branch.
 ```
 git checkout dev
 git branch
 ```
-2. 
+2. In the main.go file, update the main() function to the following:
+```
+func main() {
+	http.HandleFunc("/blue", blueHandler)
+	http.HandleFunc("/red", redHandler)
+	http.ListenAndServe(":8080", nil)
+}
+```
+3. Add the following function inside of the main.go file:
+```
+func redHandler(w http.ResponseWriter, r *http.Request) {
+	img := image.NewRGBA(image.Rect(0, 0, 100, 100))
+	draw.Draw(img, img.Bounds(), &image.Uniform{color.RGBA{255, 0, 0, 255}}, image.ZP, draw.Src)
+	w.Header().Set("Content-Type", "image/png")
+	png.Encode(w, img)
+}
+```
+4. Inspect the cloudbuild-dev.yaml file to see the steps in the build process. Update the version of the Docker image to v2.0.
+5. Navigate to the dev/deployment.yaml file and update the container image name to the new version (v2.0).
+6. Make a commit with your changes on the dev branch and push changes to trigger the sample-app-dev-deploy build job.
+7. Verify your build executed successfully in Cloud build History page, and verify the development-deployment application was deployed onto the dev namespace of the cluster and is using the v2.0 image.
+8. Navigate to the Load Balancer IP of the service and add the /red entry point at the end of the URL to verify the application is up and running. It should resemble something like the following: http://34.135.97.199:8080/red.
+
+### Build the second production deployment
+1. Switch to the master branch.
+2. In the main.go file, update the main() function to the following:
+```
+func main() {
+	http.HandleFunc("/blue", blueHandler)
+	http.HandleFunc("/red", redHandler)
+	http.ListenAndServe(":8080", nil)
+}
+```
+3. Add the following function inside of the main.go file:
+```
+func redHandler(w http.ResponseWriter, r *http.Request) {
+	img := image.NewRGBA(image.Rect(0, 0, 100, 100))
+	draw.Draw(img, img.Bounds(), &image.Uniform{color.RGBA{255, 0, 0, 255}}, image.ZP, draw.Src)
+	w.Header().Set("Content-Type", "image/png")
+	png.Encode(w, img)
+}
+```
+4. Inspect the cloudbuild.yaml file to see the steps in the build process. Update the version of the Docker image to v2.0.
+5. Navigate to the prod/deployment.yaml file and update the container image name to the new version (v2.0).
+6. Make a commit with your changes on the master branch and push changes to trigger the sample-app-prod-deploy build job.
+7. Verify your build executed successfully in Cloud build History page, and verify the production-deployment application was deployed onto the prod namespace of the cluster and is using the v2.0 image.
+8. Navigate to the Load Balancer IP of the service and add the /red entry point at the end of the URL to verify the application is up and running. It should resemble something like the following: http://34.135.245.19:8080/red.
+
+# Task-6: Roll back the production deployment
