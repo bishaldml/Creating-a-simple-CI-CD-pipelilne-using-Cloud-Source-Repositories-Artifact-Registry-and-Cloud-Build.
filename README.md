@@ -132,7 +132,7 @@ gcloud builds submit --tag="${REGION}-docker.pkg.dev/${PROJECT_ID}/$REPO/hello-c
 3. Make a commit with your changes on the dev branch and push changes to trigger the sample-app-dev-deploy build job:
 ```
 git add.
-git commit -m "msg-2"
+git commit -m "First development deployment of First version"
 git push -u origin dev
 ```
 4. Verify your build executed successfully in Cloud Build History page, and verify the development-deployment application was deployed onto the dev namespace of the cluster.
@@ -150,7 +150,7 @@ git branch
 3. Make a commit with your changes on the master branch and push changes to trigger the sample-app-prod-deploy build job:
 ```
 git add .
-git commit -m "msg-3"
+git commit -m "First production deployment of first version"
 git push -u origin master
 ```
 4. Verify the build executed successfully in cloud history page, and verify the production-deployment application was deployed onto the prod namespace of the cluster.
