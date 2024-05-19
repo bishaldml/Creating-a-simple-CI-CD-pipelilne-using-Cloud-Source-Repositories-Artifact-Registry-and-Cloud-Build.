@@ -9,18 +9,7 @@
 5. Rolling back the production application to a previous version.
 
 ## Task-1: Creating the lab resources.
-##### First set environment variables:
-```
-export PROJECT_ID=
-export CLUSTER_NAME=
-export ZONE=
-export REGION=
-export ARTIFACT_REGISTRY=
-```
-OR 
-```
-export PROJECT_ID=$(gcloud config get-value project)
-```
+
 1. Enabling API's for GKE, Cloud Build and Cloud Source Repositories:
 ```
 gcloud services enable container.googleapis.com \
@@ -28,6 +17,14 @@ gcloud services enable container.googleapis.com \
     sourcerepo.googleapis.com
 ```
 2. Adding K8s Developer role for Cloud Build Service account:
+```
+export PROJECT_ID=
+```
+OR 
+```
+export PROJECT_ID=$(gcloud config get-value project)
+```
+
 ```
 gcloud projects add-iam-policy-binding $PROJECT_ID \
 --member=serviceAccount:$(gcloud projects describe $PROJECT_ID \
@@ -42,6 +39,9 @@ git config --global user.name $NAME
 ```
 4. Creating Artifact Registry Docker Registry in your region to store our container images:
 ```
+export ARTIFACT_REGISTRY=
+export REGION=
+
 gcloud artifacts repositories create $ARTIFACT_REGISTRY \
     --repository-format=docker \
     --location=$REGION \
@@ -49,6 +49,9 @@ gcloud artifacts repositories create $ARTIFACT_REGISTRY \
 ```
 5. Creating a GKE Stadard Cluster named hello-cluster with following configurations:
 ```
+export CLUSTER_NAME=
+export ZONE=
+
 gcloud beta container --project "$PROJECT_ID" clusters create "$CLUSTER_NAME" --zone "$ZONE" --no-enable-basic-auth --cluster-version latest --release-channel "regular" --machine-type "e2-medium" --image-type "COS_CONTAINERD" --disk-type "pd-balanced" --disk-size "100" --metadata disable-legacy-endpoints=true  --logging=SYSTEM,WORKLOAD --monitoring=SYSTEM --enable-ip-alias --network "projects/$PROJECT_ID/global/networks/default" --subnetwork "projects/$PROJECT_ID/regions/$REGION/subnetworks/default" --no-enable-intra-node-visibility --default-max-pods-per-node "110" --enable-autoscaling --min-nodes "2" --max-nodes "6" --location-policy "BALANCED" --no-enable-master-authorized-networks --addons HorizontalPodAutoscaling,HttpLoadBalancing,GcePersistentDiskCsiDriver --enable-autoupgrade --enable-autorepair --max-surge-upgrade 1 --max-unavailable-upgrade 0 --enable-shielded-nodes --node-locations "$ZONE"
 ```
 6. Create prod and dev namespaces on the cluster:
