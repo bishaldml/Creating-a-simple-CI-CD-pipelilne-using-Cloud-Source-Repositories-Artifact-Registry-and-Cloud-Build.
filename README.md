@@ -30,7 +30,7 @@ git config --global user.name <name>
 ```
 4. Creating Artifact Registry Docker Registry in your region to store our container images:
 ```
-glcoud artifacts repositories create <repo-name> \
+gcloud artifacts repositories create <repo-name> \
 --repository-format=docker \
 --location=<your-region>
 ```
