@@ -35,8 +35,10 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 ```
 3. Configuring Git in Cloud Shell:
 ```
-git config --global user.email <email>
-git config --global user.name <name>
+EMAIL=
+NAME=
+git config --global user.email $EMAIL
+git config --global user.name $NAME
 ```
 4. Creating Artifact Registry Docker Registry in your region to store our container images:
 ```
