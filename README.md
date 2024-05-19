@@ -15,7 +15,7 @@ export PROJECT_ID=
 export CLUSTER_NAME=
 export ZONE=
 export REGION=
-export REPO=
+export REGISTRY=
 ```
 OR 
 ```
@@ -42,7 +42,7 @@ git config --global user.name $NAME
 ```
 4. Creating Artifact Registry Docker Registry in your region to store our container images:
 ```
-gcloud artifacts repositories create $REPO \
+gcloud artifacts repositories create $REGISTRY \
     --repository-format=docker \
     --location=$REGION \
     --description="Creating Artifact Registry (Docker)repository"
@@ -59,7 +59,8 @@ kubectl create namespace dev
 ## Task-2: Create a repository in Cloud Source Repositories.
 1. Creating a empty repository in Cloud Source Repository:
 ```
-gcloud source repos create <repo-name>
+export REPOSITORY=
+gcloud source repos create $REPOSITORY
 ```
 2. Cloning the sample-app Cloud Source Repository in Cloud Shell.
 ```
