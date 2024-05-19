@@ -15,7 +15,7 @@ export PROJECT_ID=
 export CLUSTER_NAME=
 export ZONE=
 export REGION=
-export REGISTRY=
+export ARTIFACT_REGISTRY=
 ```
 OR 
 ```
@@ -42,7 +42,7 @@ git config --global user.name $NAME
 ```
 4. Creating Artifact Registry Docker Registry in your region to store our container images:
 ```
-gcloud artifacts repositories create $REGISTRY \
+gcloud artifacts repositories create $ARTIFACT_REGISTRY \
     --repository-format=docker \
     --location=$REGION \
     --description="Creating Artifact Registry (Docker)repository"
