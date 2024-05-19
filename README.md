@@ -208,3 +208,41 @@ func redHandler(w http.ResponseWriter, r *http.Request) {
 8. Navigate to the Load Balancer IP of the service and add the /red entry point at the end of the URL to verify the application is up and running. It should resemble something like the following: http://34.135.245.19:8080/red.
 
 # Task-6: Roll back the production deployment
+1. Roll back the production-deployment to use the v1.0 version of the application.
+```
+In the Cloud console, go to Cloud Build > Dashboard.
+Click on View all link under Build History for the sample-app-prod-deploy trigger.
+Click on the second most recent build available (or the v1.0 build that executed successfully)
+Click Rebuild.
+```
+Yaswant Kumar Jangiti (Qwiklabs Support)
+
+May 16, 2024, 16:39 GMT+5:30
+
+Hi Bishal,
+ 
+Following our conversation I noticed that you've encountered challenges while Implement DevOps Workflows in Google Cloud: Challenge Lab. After conducting internal testing, we successfully completed the lab without any issues again.
+ 
+To assist you further, we recommend trying the lab again with the updated workaround of task 6 below:
+ 
+Please start the lab in incognito
+ 
+Task 6. Roll back the production deployment
+ 
+1. Roll back the production-deployment to use the v1.0 version of the application.
+```
+In the Cloud console, go to Cloud Build > Dashboard.
+Click on View all link under Build History for the sample-app-prod-deploy trigger.
+Click on the second most recent build available (or the v1.0 build that executed successfully)
+Click Rebuild.
+```
+Other method to roll back using kubectl tool:
+Run the following command to roll back the production deployment:
+```
+kubectl -n prod rollout undo deployment/production-deployment
+```
+Run the following command to check version status:
+```
+kubectl -n prod get pods -o jsonpath --template='{range .items[*]}{.metadata.name}{"\t"}{"\t"}{.spec.containers[0].image}{"\n"}{end}'
+```
+3. Navigate to the Load Balancer IP of the service and add the /red entry point at the end of the URL of the production deployment and response on the page should be 404.
