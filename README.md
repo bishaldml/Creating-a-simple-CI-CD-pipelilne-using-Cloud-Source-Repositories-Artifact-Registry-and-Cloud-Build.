@@ -184,6 +184,11 @@ func redHandler(w http.ResponseWriter, r *http.Request) {
 4. Inspect the cloudbuild-dev.yaml file to see the steps in the build process. Update the version of the Docker image to v2.0.
 5. Navigate to the dev/deployment.yaml file and update the container image name to the new version (v2.0).
 6. Make a commit with your changes on the dev branch and push changes to trigger the sample-app-dev-deploy build job.
+```
+git add .
+git commit -m "First development deployment" 
+git push -u origin dev
+```
 7. Verify your build executed successfully in Cloud build History page, and verify the development-deployment application was deployed onto the dev namespace of the cluster and is using the v2.0 image.
 8. Navigate to the Load Balancer IP of the service and add the /red entry point at the end of the URL to verify the application is up and running. It should resemble something like the following: http://34.135.97.199:8080/red.
 
@@ -209,6 +214,11 @@ func redHandler(w http.ResponseWriter, r *http.Request) {
 4. Inspect the cloudbuild.yaml file to see the steps in the build process. Update the version of the Docker image to v2.0.
 5. Navigate to the prod/deployment.yaml file and update the container image name to the new version (v2.0).
 6. Make a commit with your changes on the master branch and push changes to trigger the sample-app-prod-deploy build job.
+```
+git add .
+git commit -m "Second production deployment" 
+git push -u origin master
+```
 7. Verify your build executed successfully in Cloud build History page, and verify the production-deployment application was deployed onto the prod namespace of the cluster and is using the v2.0 image.
 8. Navigate to the Load Balancer IP of the service and add the /red entry point at the end of the URL to verify the application is up and running. It should resemble something like the following: http://34.135.245.19:8080/red.
 
