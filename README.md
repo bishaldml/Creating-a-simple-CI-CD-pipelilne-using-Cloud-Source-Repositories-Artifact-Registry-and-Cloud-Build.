@@ -43,7 +43,7 @@ git config --global user.name <name>
 gcloud artifacts repositories create $REPO \
     --repository-format=docker \
     --location=$REGION \
-    --description="Creating repository"
+    --description="Creating Artifact Registry (Docker)repository"
 ```
 5. Creating a GKE Stadard Cluster named hello-cluster with following configurations:
 ```
