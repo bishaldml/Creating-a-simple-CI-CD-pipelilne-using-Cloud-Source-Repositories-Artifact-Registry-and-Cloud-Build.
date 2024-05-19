@@ -9,6 +9,14 @@
 5. Rolling back the production application to a previous version.
 
 ## Task-1: Creating the lab resources.
+##### First set environment variables:
+```
+export PROJECT_ID=
+export CLUSTER_NAME=
+export ZONE=
+export REGION=
+export REPO=
+```
 1. Enabling API's for GKE, Cloud Build and Cloud Source Repositories:
 ```
 gcloud services enable container.googleapis.com \
