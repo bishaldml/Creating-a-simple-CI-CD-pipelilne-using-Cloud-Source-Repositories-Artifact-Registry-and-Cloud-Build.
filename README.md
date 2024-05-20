@@ -154,6 +154,27 @@ git push -u origin dev
 ```
 4. Verify your build executed successfully in Cloud Build History page, and verify the development-deployment application was deployed onto the dev namespace of the cluster.
 5. Expose the development-deployment deployment to a LoadBalancer service named dev-deployment-service on port 8080, and set the target port of the container to the one specified in the Dockerfile.
+1. Create a ```dev-deployment-service.yaml``` in the ```dev/``` directory:
+```
+vi dev-deployment-service.yam
+```
+2. Paste the below contents on the above created file:
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: dev-deployment-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: dev-app
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 9001
+  
+```
+    
 6. Navigate to the LoadBalance IP of the service and add the /blue entry point of the end of the URL to verify the application is up and running. It should resemble samething like the following: http://34.135.97.199:8080/blue.
 
 ### Build the First production deployment.
@@ -172,6 +193,25 @@ git push -u origin master
 ```
 4. Verify the build executed successfully in cloud history page, and verify the production-deployment application was deployed onto the prod namespace of the cluster.
 5. Expose the production-deployment on the prod namespace to a loadBalancer service named prod-deployment-service on port 8080, to the one specified in the Dockerfile.
+1. Create a ```prod-deployment-service.yaml``` in the ```prod/``` directory:
+```
+vi prod-deployment-service.yam
+```
+2. Paste the below contents on the above created file:
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: prod-deployment-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: production-app
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 9001
+```
 6. Navigate to the LoadBalancer IP of the service and add the /blue entry point of the end of the URL to verify the application is up and running. It should resemble something like the following: http://34.135.245.19:8080/blue
 
 ## Task-5: Deploy the second version of the application.
