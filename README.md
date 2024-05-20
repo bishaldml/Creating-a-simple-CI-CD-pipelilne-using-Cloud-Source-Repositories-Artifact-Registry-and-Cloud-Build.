@@ -154,11 +154,12 @@ git push -u origin dev
 ```
 4. Verify your build executed successfully in Cloud Build History page, and verify the development-deployment application was deployed onto the dev namespace of the cluster.
 5. Expose the development-deployment deployment to a LoadBalancer service named dev-deployment-service on port 8080, and set the target port of the container to the one specified in the Dockerfile.
-1. Create a ```dev-deployment-service.yaml``` in the ```dev/``` directory:
+
+Create a ```dev-deployment-service.yaml``` in the ```dev/``` directory:
 ```
 vi dev-deployment-service.yam
 ```
-2. Paste the below contents on the above created file:
+Paste the below contents on the above created file:
 ```
 apiVersion: v1
 kind: Service
@@ -174,7 +175,7 @@ spec:
     targetPort: 9001
   
 ```
-3. Create a service for above created file in the dev namespace:
+Create a service for above created file in the dev namespace:
 ```
 kubectl apply -f dev/dev-deployment-service.yaml -n dev
 ```
@@ -197,11 +198,12 @@ git push -u origin master
 ```
 4. Verify the build executed successfully in cloud history page, and verify the production-deployment application was deployed onto the prod namespace of the cluster.
 5. Expose the production-deployment on the prod namespace to a loadBalancer service named prod-deployment-service on port 8080, to the one specified in the Dockerfile.
-1. Create a ```prod-deployment-service.yaml``` in the ```prod/``` directory:
+
+Create a ```prod-deployment-service.yaml``` in the ```prod/``` directory:
 ```
 vi prod-deployment-service.yam
 ```
-2. Paste the below contents on the above created file:
+Paste the below contents on the above created file:
 ```
 apiVersion: v1
 kind: Service
@@ -216,7 +218,7 @@ spec:
     port: 8080
     targetPort: 9001
 ```
-3. Create a service for above created file in the prod namespace:
+Create a service for above created file in the prod namespace:
 ```
 kubectl apply -f prod/prod-deployment-service.yaml -n prod
 ```
