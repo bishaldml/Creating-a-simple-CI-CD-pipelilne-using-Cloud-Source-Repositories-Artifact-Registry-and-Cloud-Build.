@@ -143,7 +143,10 @@ git push -u origin dev
 
 ### Build the First development deployment.
 1. In cloud shell, inspect the cloudbuild-dev.yaml file and replace the <version> on lines 9 and 13 with v1.0
-2. Navigate to the dev/deployment.yaml file and update the <todo> on line 17 with the correct container image name.
+2. Navigate to the dev/deployment.yaml file and update the <todo> on line 17 with the correct container image name.Like:
+```
+us-east1-docker.pkg.dev/qwiklabs-gcp-03-b95b6804b966/my-repository/hello-cloudbuild-dev:v1.0
+```
 #### *Note: Make sure you have same container image name in cloudbuild-dev.yaml file and dev/deployment.yaml file.
 
 3. Make a commit with your changes on the dev branch and push changes to trigger the sample-app-dev-deploy build job:
