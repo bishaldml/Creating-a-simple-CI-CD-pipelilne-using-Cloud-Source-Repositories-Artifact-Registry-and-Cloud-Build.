@@ -174,6 +174,10 @@ spec:
     targetPort: 9001
   
 ```
+3. Create a service for above created file in the dev namespace:
+```
+kubectl apply -f dev/dev-deployment-service.yaml -n dev
+```
     
 6. Navigate to the LoadBalance IP of the service and add the /blue entry point of the end of the URL to verify the application is up and running. It should resemble samething like the following: http://34.135.97.199:8080/blue.
 
@@ -211,6 +215,10 @@ spec:
   - protocol: TCP
     port: 8080
     targetPort: 9001
+```
+3. Create a service for above created file in the prod namespace:
+```
+kubectl apply -f prod/prod-deployment-service.yaml -n prod
 ```
 6. Navigate to the LoadBalancer IP of the service and add the /blue entry point of the end of the URL to verify the application is up and running. It should resemble something like the following: http://34.135.245.19:8080/blue
 
