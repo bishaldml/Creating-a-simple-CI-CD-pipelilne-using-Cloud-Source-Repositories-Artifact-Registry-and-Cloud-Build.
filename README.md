@@ -34,6 +34,9 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 ```
 export EMAIL=
 export NAME=
+```
+And
+```
 git config --global user.email $EMAIL
 git config --global user.name $NAME
 ```
@@ -41,7 +44,9 @@ git config --global user.name $NAME
 ```
 export ARTIFACT_REGISTRY=
 export REGION=
-
+```
+And
+```
 gcloud artifacts repositories create $ARTIFACT_REGISTRY \
     --repository-format=docker \
     --location=$REGION \
@@ -51,7 +56,9 @@ gcloud artifacts repositories create $ARTIFACT_REGISTRY \
 ```
 export CLUSTER_NAME=
 export ZONE=
-
+```
+And
+```
 gcloud beta container --project "$PROJECT_ID" clusters create "$CLUSTER_NAME" --zone "$ZONE" --no-enable-basic-auth --cluster-version latest --release-channel "regular" --machine-type "e2-medium" --image-type "COS_CONTAINERD" --disk-type "pd-balanced" --disk-size "100" --metadata disable-legacy-endpoints=true  --logging=SYSTEM,WORKLOAD --monitoring=SYSTEM --enable-ip-alias --network "projects/$PROJECT_ID/global/networks/default" --subnetwork "projects/$PROJECT_ID/regions/$REGION/subnetworks/default" --no-enable-intra-node-visibility --default-max-pods-per-node "110" --enable-autoscaling --min-nodes "2" --max-nodes "6" --location-policy "BALANCED" --no-enable-master-authorized-networks --addons HorizontalPodAutoscaling,HttpLoadBalancing,GcePersistentDiskCsiDriver --enable-autoupgrade --enable-autorepair --max-surge-upgrade 1 --max-unavailable-upgrade 0 --enable-shielded-nodes --node-locations "$ZONE"
 ```
 6. Create prod and dev namespaces on the cluster:
@@ -63,6 +70,9 @@ kubectl create namespace dev
 1. Creating a empty repository in Cloud Source Repository:
 ```
 export REPOSITORY=
+```
+And
+```
 gcloud source repos create $REPOSITORY
 ```
 2. Cloning the sample-app Cloud Source Repository in Cloud Shell.
@@ -76,9 +86,14 @@ gsutil cp -r gs://spls/gsp330/sample-app/* .
 ```
 4. Automatically replacing the <your-region> and <your-zone> placeholders in the cloudbuild-dev.yaml and cloudbuild.yaml files with the assigned region and zone of our project.
 ```
+export REGION=
+export ZONE=
+```
+And
+```
 for file in sample-app/cloudbuild-dev.yaml sample-app/cloudbuild.yaml; do
-  sed -i 's/<your_region>/${REGION}/g' "$file"
-  sed -i 's/<your_zone>/${ZONE}/g' "$file"
+    sed -i "s/<your-region>/${REGION}/g" "$file"
+    sed -i "s/<your-zone>/${ZONE}/g" "$file"
 done
 ```
 
@@ -125,9 +140,7 @@ git push -u origin dev
 #### *Note: After setting up the triggers, any changes to the branches triggers the corresponding Cloud Build Pipeline, which builds and deploy the application as specified in the cloudbuild.yaml files.
 
 ## Task-4: Deploy the first version of the application.
-```
-gcloud builds submit --tag="${REGION}-docker.pkg.dev/${PROJECT_ID}/$REPO/hello-cloudbuild:v1.0" .
-```
+
 ### Build the First development deployment.
 1. In cloud shell, inspect the cloudbuild-dev.yaml file and replace the <version> on lines 9 and 13 with v1.0
 2. Navigate to the dev/deployment.yaml file and update the <todo> on line 17 with the correct container image name.
@@ -135,7 +148,7 @@ gcloud builds submit --tag="${REGION}-docker.pkg.dev/${PROJECT_ID}/$REPO/hello-c
 
 3. Make a commit with your changes on the dev branch and push changes to trigger the sample-app-dev-deploy build job:
 ```
-git add.
+git add .
 git commit -m "First development deployment of First version"
 git push -u origin dev
 ```
