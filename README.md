@@ -33,6 +33,8 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 3. Configuring Git in Cloud Shell:
 ```
 export EMAIL=
+```
+```
 export NAME=
 ```
 And
