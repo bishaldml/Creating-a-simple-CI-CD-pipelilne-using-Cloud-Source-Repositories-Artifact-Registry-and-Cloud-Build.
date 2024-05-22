@@ -45,6 +45,8 @@ git config --global user.name $NAME
 4. Creating Artifact Registry Docker Registry in your region to store our container images:
 ```
 export ARTIFACT_REGISTRY=
+```
+```
 export REGION=
 ```
 And
@@ -57,6 +59,8 @@ gcloud artifacts repositories create $ARTIFACT_REGISTRY \
 5. Creating a GKE Stadard Cluster named hello-cluster with following configurations:
 ```
 export CLUSTER_NAME=
+```
+```
 export ZONE=
 ```
 And
@@ -89,6 +93,8 @@ gsutil cp -r gs://spls/gsp330/sample-app/* .
 4. Automatically replacing the <your-region> and <your-zone> placeholders in the cloudbuild-dev.yaml and cloudbuild.yaml files with the assigned region and zone of our project.
 ```
 export REGION=
+```
+```
 export ZONE=
 ```
 And
@@ -162,7 +168,7 @@ git push -u origin dev
 
 Create a ```dev-deployment-service.yaml``` in the ```dev/``` directory:
 ```
-vi dev-deployment-service.yam
+vi dev-deployment-service.yaml
 ```
 Paste the below contents on the above created file:
 ```
@@ -177,7 +183,7 @@ spec:
   ports:
   - protocol: TCP
     port: 8080
-    targetPort: 9001
+    targetPort: 8080
   
 ```
 Create a service for above created file in the dev namespace:
@@ -189,24 +195,25 @@ kubectl apply -f dev/dev-deployment-service.yaml -n dev
 
 ### Build the First production deployment.
 
-1. Switch to the master branch. Inspect cloudbuild.yaml located in sample-app and replace the <version> on lines 11 and 16 with v1.0:
+1. Switch to the master branch. 
 ```
 git checkout master
 git branch
 ```
-2. Navigate to the pod/deployment.yaml file and update the <todo> on line 17 with the correct container image name.
-3. Make a commit with your changes on the master branch and push changes to trigger the sample-app-prod-deploy build job:
+2. Inspect cloudbuild.yaml located in sample-app and replace the <version> on lines 11 and 16 with v1.0:
+3. Navigate to the pod/deployment.yaml file and update the <todo> on line 17 with the correct container image name.
+4. Make a commit with your changes on the master branch and push changes to trigger the sample-app-prod-deploy build job:
 ```
 git add .
 git commit -m "First production deployment of first version"
 git push -u origin master
 ```
-4. Verify the build executed successfully in cloud history page, and verify the production-deployment application was deployed onto the prod namespace of the cluster.
-5. Expose the production-deployment on the prod namespace to a loadBalancer service named prod-deployment-service on port 8080, to the one specified in the Dockerfile.
+5. Verify the build executed successfully in cloud history page, and verify the production-deployment application was deployed onto the prod namespace of the cluster.
+6. Expose the production-deployment on the prod namespace to a loadBalancer service named prod-deployment-service on port 8080, to the one specified in the Dockerfile.
 
 Create a ```prod-deployment-service.yaml``` in the ```prod/``` directory:
 ```
-vi prod-deployment-service.yam
+vi prod-deployment-service.yaml
 ```
 Paste the below contents on the above created file:
 ```
@@ -221,7 +228,7 @@ spec:
   ports:
   - protocol: TCP
     port: 8080
-    targetPort: 9001
+    targetPort: 8080
 ```
 Create a service for above created file in the prod namespace:
 ```
